@@ -22,6 +22,28 @@ class MoviesController < ApplicationController
     end
   end
 
+  def upd
+    # 
+  end
+  
+  def real_upd
+    title = params[:movie][:title]
+    dbMovie = Movie.find_by_title(title)
+    
+    if dbMovie.nil?
+      flash[:notice] = "Movies #{title} doens't exists"
+    else
+      myDate =  Date.new params[:movie]["release_date(1i)"].to_i, params[:movie]["release_date(2i)"].to_i, params[:movie]["release_date(3i)"].to_i
+      dbMovie.update_attribute(:title,params[:movie][:newtitle])
+      dbMovie.update_attribute(:rating,params[:movie][:rating])
+      dbMovie.update_attribute(:release_date,myDate)
+      # dat = Date.new params[:movie]["release_date(1i)"].to_i, params[:movie]["release_date(2i)"].to_i, params[:movie]["release_date(3i)"].to_i
+      #check = Date.new params[movie]["release_date(1i)"].to_i, params[movie]["release_date(2i)"].to_i, params[movie]["release_date(3i)"].to_i
+    end
+
+    redirect_to movies_path
+  end
+  
   def new
     # default: render 'new' template
   end

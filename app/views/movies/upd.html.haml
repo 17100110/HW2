@@ -1,0 +1,17 @@
+<h1> my update page </h1>
+
+= form_tag action: "real_upd", method: "get" do
+
+  = label :movie, :title, 'Title'
+  = text_field :movie, 'title'
+  
+  = label :movie, :newtitle, 'New Title'
+  = text_field :movie, 'newtitle'
+
+  = label :movie, :rating, 'Rating'
+  = select :movie, :rating, ['G','PG','PG-13','R','NC-17']
+
+  = label :movie, :release_date, 'Released On'
+  = date_select :movie, :release_date
+
+  = submit_tag 'Save Changes'
