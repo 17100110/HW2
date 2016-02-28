@@ -68,6 +68,35 @@ class MoviesController < ApplicationController
     flash[:notice] = "#{@movie.title} was successfully updated."
     redirect_to movie_path(@movie)
   end
+  
+  def del
+  end
+
+  def my_delete
+    if params[:movie][:title] == " " && params[:movie][:rating]
+      flash[:notice] = " feilds cannot be empty."
+    else
+    
+    t  =  params[:movie][:title]
+    m = Movie.find_by_title( params[:movie][:title])
+    
+    if (not (m.nil? or t == ""))
+      m.destroy
+    end
+    r = params[:movie][:rating]
+    
+    m = Movie.find_by_rating(params[:movie][:rating])
+    
+    while(not(r == " " or m.nil?))
+      m.destroy
+      m = Movie.find_by_rating(r)
+    end
+    flash[:notice] = " movie deleted."
+    redirect_to movies_path
+  end
+  end
+
+
 
   def destroy
     @movie = Movie.find(params[:id])

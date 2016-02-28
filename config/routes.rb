@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   #   resources :products
   get "movies/upd" => "movies#upd"
   post "/real_upd" => "movies#real_upd"
+  get "movies/del" => "movies#del"
+  post "/my_delete" => "movies#my_delete"
   
   resources :movies
   
