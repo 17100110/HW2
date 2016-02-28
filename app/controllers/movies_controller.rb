@@ -14,11 +14,26 @@ class MoviesController < ApplicationController
     sort_category=params[:sort_by]
     
     # @movies = Movie.all
+    @all_ratings = Movie.all_ratings
+    @movies = Movie.all
+    @selectedRatings = @all_ratings
+    
+    if (!params[:ratings].nil?) 
+      
+      arr = []
+      params[:ratings].each {|key, value| arr.push(key) }
+      
+      @movies = Movie.where(rating: arr)
+      @selectedRatings = arr
+    end
+    
+    if !(params[:sort_by].nil?)
     @movies=Movie.all.order(sort_category)
-    if params[:sort_by]=='title'
-      @title_tohilite='hilite'
-    elsif params[:sort_by]=='release_date'
-      @release_tohilite='hilite'
+      if params[:sort_by]=='title'
+        @title_tohilite='hilite'
+      elsif params[:sort_by]=='release_date'
+        @release_tohilite='hilite'
+      end
     end
   end
 
