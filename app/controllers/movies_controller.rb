@@ -33,12 +33,16 @@ class MoviesController < ApplicationController
     if dbMovie.nil?
       flash[:notice] = "Movies #{title} doens't exists"
     else
+      if !(params[:movie][:newtitle] == "" || params[:movie][:rating] == " ")
       myDate =  Date.new params[:movie]["release_date(1i)"].to_i, params[:movie]["release_date(2i)"].to_i, params[:movie]["release_date(3i)"].to_i
       dbMovie.update_attribute(:title,params[:movie][:newtitle])
       dbMovie.update_attribute(:rating,params[:movie][:rating])
       dbMovie.update_attribute(:release_date,myDate)
+    else
+      flash[:notice] = "Movies #{title} cannot updaate feilds blank"
       # dat = Date.new params[:movie]["release_date(1i)"].to_i, params[:movie]["release_date(2i)"].to_i, params[:movie]["release_date(3i)"].to_i
       #check = Date.new params[movie]["release_date(1i)"].to_i, params[movie]["release_date(2i)"].to_i, params[movie]["release_date(3i)"].to_i
+    end
     end
 
     redirect_to movies_path
